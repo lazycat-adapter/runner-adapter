@@ -1,0 +1,74 @@
+usage: |
+  注册地址、令牌和名称在安装时填写；Runner 会连接到指定的 Gitea 实例。
+  服务状态和 metrics 地址：https://{{ .S.AppDomain }}
+  Runner 数据和配置持久保存在 /lzcapp/var/data。
+application:
+  multi_instance: false
+  health_check:
+    disable: true
+  public_path:
+    - /metrics
+  routes:
+    - /=http://gitearunner.cloud.lazycat.app.gitearunner.lzcapp:8099
+  subdomain: gitearunner
+  injects:
+    - id: index
+      on: request
+      auth_required: false
+      when:
+        - "/"
+      do:
+        - src: |
+            const contentType = "text/html; charset=utf-8";
+            ctx.response.send(200, `<!DOCTYPE html>
+            <html lang="zh-CN">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Gitea Runner 状态</title>
+              <style>
+                body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif; background: #f7f9fb; color: #333; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
+                .card { background: #fff; border: 1px solid #dcdfe6; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,.05); padding: 2em 3em; max-width: 520px; text-align: center; }
+                h1 { color: #2085d8; margin-bottom: .5em; }
+                .info { text-align: left; margin-top: 1em; font-size: 1.05em; }
+                .info span { font-weight: bold; color: #555; }
+                .metrics-link { margin-top: 1.5em; }
+                .metrics-link a { display: inline-block; background: #2085d8; color: #fff; padding: .6em 1.2em; border-radius: 8px; text-decoration: none; }
+                .url-display { margin-top: .8em; font-size: .95em; color: #555; word-break: break-all; }
+              </style>
+            </head>
+            <body>
+              <div class="card">
+                <h1>✅ Gitea Runner 已经运行</h1>
+                <div class="info">
+                  <p><span>连接的 Gitea 服务器地址：</span> <span id="gitea-url">{{ .U.url }}</span></p>
+                  <p><span>Runner 名称：</span> <span id="runner-name">{{ .U.name }}</span></p>
+                  <p><span>Metrics 地址：</span> <span id="metrics-url-text"></span></p>
+                </div>
+                <div class="metrics-link"><a id="metrics-link" href="#" target="_blank">打开 Metrics 监控</a></div>
+              </div>
+              <script>
+                const metricsUrl = window.location.protocol + "//" + window.location.hostname + "/metrics";
+                document.getElementById("metrics-link").href = metricsUrl;
+                document.getElementById("metrics-url-text").textContent = metricsUrl;
+              </script>
+            </body>
+            </html>`, { content_type: contentType });
+            return;
+services:
+  gitearunner:
+    # The shared action replaces this with the verified LazyCat registry image.
+    # upstream: docker.io/gitea/runner:v6.0.1-dind@sha256:b15d97ad4ff4c2ff1e8eecdb3311fa6658268b38007fe658bf3ce112e2bf2f5e
+    image: registry.lazycat.cloud/cloud/gitea/runner:pending
+    binds:
+      - /lzcapp/var/data:/data
+    environment:
+      CONFIG_FILE: /data/config.yaml
+      GITEA_RUNNER_REGISTRATION_TOKEN: '{{ .U.token }}'
+      GITEA_INSTANCE_URL: '{{ .U.url }}'
+      GITEA_RUNNER_ENVIRON: '{{ .U.env }}'
+      GITEA_RUNNER_NAME: '{{ .U.name }}'
+    setup_script: |
+      #!/bin/sh
+      set -eu
+      /usr/local/bin/lazycat-runner-network-setup

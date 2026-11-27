@@ -1,0 +1,64 @@
+version: 2
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: dist/cloud.lazycat.app.gitearunner.lpk
+  target_arch: amd64
+
+source:
+  kind: git
+  url: https://gitea.com/gitea/runner.git
+  select:
+    strategy: semver-tag
+    channel: stable
+    # Gitea Runner publishes v-prefixed stable tags. Prereleases are excluded.
+    tag_regex: '^v[0-9]+\.[0-9]+\.[0-9]+$'
+    exclude_regex: '(?i)(alpha|beta|rc|preview|nightly)'
+
+changelog:
+  # Gitea is not GitHub, so use the exact commit range instead of GitHub API.
+  mode: git-commits
+  git_url: https://gitea.com/gitea/runner.git
+  max_commits: 80
+
+state:
+  file: .lazycat-action.lock.yml
+
+update:
+  strategy: publish
+  allow_downgrade: false
+
+build:
+  run_buildscript: false
+  prepare:
+    # The image recipe keeps the upstream DIND runner and packages the
+    # LazyCat network setup helper into every upgraded image.
+    mode: dockerfile
+    context: image
+    dockerfile: image/Dockerfile
+    output_image: 'ttl.sh/lazycat-gitearunner-{fingerprint}:24h'
+
+images:
+  - id: gitearunner
+    target: service
+    service: gitearunner
+    source: docker.io/gitea/runner:{source_version}-dind
+    delivery:
+      mode: lazycat
+      copy_timeout: 30m
+      copy_idle_timeout: 10m
+
+stores:
+  official:
+    enabled: true
+    create_if_missing: false
+    skip_if_version_exists: true
+    continue_if_newer_version: true
+    changelog_locales: [zh, en]
+    retry:
+      enabled: true
+      max_attempts: 5
+      initial_delay: 2s
+      max_delay: 30s

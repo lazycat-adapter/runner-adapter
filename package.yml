@@ -1,0 +1,26 @@
+package: cloud.lazycat.app.gitearunner
+version: 1.0.3
+name: Gitea Runner
+description: Gitea Actions 工作流运行器，支持 Docker 构建和任务执行。
+homepage: https://gitea.com/gitea/runner
+author: gitea
+license: MIT
+min_os_version: 1.5.0
+unsupported_platforms:
+  - android
+  - ios
+  - tvos
+locales:
+  zh:
+    name: Gitea Runner
+    description: Gitea Actions 工作流运行器，支持 Docker 构建和任务执行。
+    usage: |
+      注册地址、令牌和名称在安装时填写；Runner 会连接到指定的 Gitea 实例。
+      服务状态和 metrics 地址：https://{{ .S.AppDomain }}
+      Runner 数据和配置持久保存在 /lzcapp/var/data。
+  en:
+    name: Gitea Runner
+    description: Gitea Actions runner for Docker-based workflow execution.
+    usage: |
+      Enter the Gitea URL, registration token, and runner name during installation.
+      Runner data and configuration are persisted under /lzcapp/var/data.
