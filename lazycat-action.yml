@@ -21,7 +21,7 @@ changelog:
   # Gitea is not GitHub, so use the exact commit range instead of GitHub API.
   mode: git-commits
   git_url: https://gitea.com/gitea/runner.git
-  max_commits: 80
+  max_commits: 50
 
 state:
   file: .lazycat-action.lock.yml
