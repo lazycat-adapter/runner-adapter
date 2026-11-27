@@ -1,3 +1,12 @@
 manifest: ./lzc-manifest.yml
 icon: ./icon.png
 pkgout: ./dist
+deploy_params: ./lzc-deploy-params.yml
+compose_override:
+  services:
+    gitearunner:
+      volumes:
+        - source: /lzcsys/run/lzc-docker/docker.sock
+          target: /var/run/docker.sock
+          type: bind
+          read_only: true

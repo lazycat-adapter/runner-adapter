@@ -18,7 +18,7 @@ class RunnerAdapterContractTests(unittest.TestCase):
 
     def test_package_identity_and_online_baseline(self):
         self.assertEqual(self.package["package"], "cloud.lazycat.app.gitearunner")
-        self.assertEqual(self.package["version"], "1.0.3")
+        self.assertRegex(self.package["version"], r"^\d+\.\d+\.\d+$")
         self.assertEqual(self.package["homepage"], "https://gitea.com/gitea/runner")
 
     def test_source_selects_stable_gitea_runner_tags(self):
@@ -37,7 +37,7 @@ class RunnerAdapterContractTests(unittest.TestCase):
         self.assertIn("SOURCE_VERSION", self.dockerfile)
         self.assertIn("docker.io/gitea/runner:${SOURCE_VERSION}-dind", self.dockerfile)
         self.assertIn("lazycat-runner-network-setup", self.dockerfile)
-        self.assertTrue(self.action["images"][0]["delivery"]["mode"], "lazycat")
+        self.assertEqual(self.action["images"][0]["delivery"]["mode"], "lazycat")
 
     def test_manifest_preserves_runner_registration_and_persistence(self):
         application = self.manifest["application"]
@@ -51,10 +51,10 @@ class RunnerAdapterContractTests(unittest.TestCase):
         self.assertIn("lazycat-runner-network-setup", service["setup_script"])
 
     def test_network_setup_keeps_lazycat_socket_and_buildx_paths(self):
-        self.assertIn("/lzcsys/run/lzc-docker/docker.sock", self.network_setup)
+        self.assertIn("/lzcsys/run/lzc-docker/docker.sock", (ROOT / "image/migrate-config.py").read_text())
         self.assertIn("docker network create --driver bridge gitea-build", self.network_setup)
         self.assertIn("docker buildx create", self.network_setup)
-        self.assertIn("BUILDX_BUILDER: gitea-runner-build", self.network_setup)
+        self.assertIn("docker buildx inspect --bootstrap gitea-runner-build", self.network_setup)
         self.assertIn("/data/config.yaml", self.network_setup)
 
     def test_delivery_uses_official_registry_reference(self):

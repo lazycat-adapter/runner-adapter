@@ -6,6 +6,9 @@ homepage: https://gitea.com/gitea/runner
 author: gitea
 license: MIT
 min_os_version: 1.5.0
+permissions:
+  required:
+    - compose.override
 unsupported_platforms:
   - android
   - ios
