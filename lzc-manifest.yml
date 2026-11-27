@@ -56,7 +56,8 @@ application:
 services:
   gitearunner:
     # The shared action replaces this with the verified LazyCat registry image.
-    image: registry.lazycat.cloud/u55462751/gitea/runner:5a1dc0a6108e0738
+    # upstream: ttl.sh/lazycat-gitearunner-ef09f21ef582:24h@sha256:193b0a171be4b6ff635a8d3e18b98cdc1165f12ef516eeb757f1e4b25bd37888
+    image: registry.lazycat.cloud/peter/lazycat-gitearunner-ef09f21ef582:36e1dbd3c66628de
     binds:
       - /lzcapp/var/data:/data
     environment:
