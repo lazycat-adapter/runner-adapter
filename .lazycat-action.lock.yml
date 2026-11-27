@@ -6,7 +6,7 @@ source:
     revision: ff4f6268719bb97c12d12453cb560c9749d59102
     tag: v6.0.1
 fingerprint: sha256:ef09f21ef5829378dfb89c76e18894287bd7d63ea56eb0fd4e19f81ffd86b1e6
-status: packaged
+status: submitted
 images:
     - id: gitearunner
       source_ref: ttl.sh/lazycat-gitearunner-ef09f21ef582:24h@sha256:193b0a171be4b6ff635a8d3e18b98cdc1165f12ef516eeb757f1e4b25bd37888
@@ -69,3 +69,18 @@ application:
         - enhance: add GITEA_* aliases for built-in workflow environment variables (#1358)
         - fix: scope the action identity to the step executing an action (#1359)
 packaged_at: 2026-11-27T02:53:52.831591583Z
+reviews:
+    - id: 24050
+      source:
+        kind: git
+        version: 6.0.1
+        ref: refs/tags/v6.0.1
+        revision: ff4f6268719bb97c12d12453cb560c9749d59102
+        tag: v6.0.1
+      fingerprint: sha256:ef09f21ef5829378dfb89c76e18894287bd7d63ea56eb0fd4e19f81ffd86b1e6
+      application_version: 6.0.1
+      lpk_sha256: 041c7be8d0fae61b2707333b528806c48415c5eb7aebc868e595401d48c82d50
+      status: waiting
+      created_at: 2026-11-27T02:54:15.59Z
+      submitted_at: 2026-11-27T02:54:15.727423971Z
+      checked_at: 2026-11-27T02:54:15.727424295Z
