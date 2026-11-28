@@ -1,5 +1,5 @@
 package: cloud.lazycat.app.gitearunner
-version: 6.0.1
+version: 6.1.0
 name: Gitea Runner
 description: Gitea Actions 工作流运行器，支持 Docker 构建和任务执行。
 homepage: https://gitea.com/gitea/runner

@@ -1,74 +1,31 @@
 version: 2
 source:
     kind: git
-    version: 6.0.1
-    ref: refs/tags/v6.0.1
-    revision: ff4f6268719bb97c12d12453cb560c9749d59102
-    tag: v6.0.1
-fingerprint: sha256:ef09f21ef5829378dfb89c76e18894287bd7d63ea56eb0fd4e19f81ffd86b1e6
-status: submitted
+    version: 6.1.0
+    ref: refs/tags/v6.1.0
+    revision: a8d0d8a7e0836df7fc1d8c02139d31a31b1efa31
+    tag: v6.1.0
+fingerprint: sha256:dd7d9c1816187cb8061bda323e7247b2353086ecbd2b4d55c8cd47df3129c552
+status: packaged
 images:
     - id: gitearunner
-      source_ref: ttl.sh/lazycat-gitearunner-ef09f21ef582:24h@sha256:193b0a171be4b6ff635a8d3e18b98cdc1165f12ef516eeb757f1e4b25bd37888
-      source_digest: sha256:193b0a171be4b6ff635a8d3e18b98cdc1165f12ef516eeb757f1e4b25bd37888
-      runtime_ref: registry.lazycat.cloud/peter/lazycat-gitearunner-ef09f21ef582:36e1dbd3c66628de
+      source_ref: ttl.sh/lazycat-gitearunner-dd7d9c181618:24h@sha256:c3fcf50076ecc24226aac5d73764cc2dc76cb75bb405cbfffaa57206a07298e2
+      source_digest: sha256:c3fcf50076ecc24226aac5d73764cc2dc76cb75bb405cbfffaa57206a07298e2
+      runtime_ref: registry.lazycat.cloud/peter/lazycat-gitearunner-dd7d9c181618:f8eb7610a8aea4e5
 application:
     package: cloud.lazycat.app.gitearunner
-    version: 6.0.1
-    lpk_sha256: 041c7be8d0fae61b2707333b528806c48415c5eb7aebc868e595401d48c82d50
+    version: 6.1.0
+    lpk_sha256: 9eefc979b0286936257f460b646c2064fdef6e85d98c610dfd61b32ce519f778
     changelog: |-
-        Upstream 6.0.1 (since 1.0.3)
-        - fix: stop deriving `ImageOS` from runs-on labels (#1419)
-        - fix: repair free-disk-space build on illumos, Solaris, NetBSD and OpenBSD (#1416)
-        - fix: misc improvements (#1415)
-        - fix: honor zero and empty values for fetch backoff and idle cleanup (#1418)
-        - fix(deps): update dependencies (#1414)
-        - fix: support `cache-mode` and make low-trust runs cache read-only (#1412)
-        - fix: stop host teardown from deleting a workdir it never created (#1409)
-        - fix: align common behaviour with GitHub's runner (#1413)
-        - fix: keep composite post steps in their own step scope (#1410)
-        - docs: add a launchd example for macOS (#1408)
-        - enhance: make shared tool cache safe at any capacity (#1401)
-        - fix!: remove the dbfs log workaround and require Gitea 1.26.2 (#1395)
-        - refactor!: remove the builtin actions (#1407)
-        - chore(deps): update dependencies (#1406)
-        - fix: stop a stalled docker daemon from hanging jobs and the e2e suite (#1404)
-        - fix: re-detect the cache address per job and prefer IPv4 (#1398)
-        - docs: trim comments and docs from workspace emptying change (#1403)
-        - enhance: add ubuntu-26.04 to the default labels (#1396)
-        - fix: empty root-owned bind workspaces for non-root runners (#1399)
-        - docs: trust a private registry CA in the dind images (#1397)
-        - enhance: improve hashFiles coercion and log grouping (#1394)
-        - enhance: add builtin:download-artifact (#1344)
-        - enhance: add builtin:upload-artifact (#1343)
-        - refactor(container): stream copies into the job and archives out of the host (#1340)
-        - feat: port the path patterns of @actions/glob (#1342)
-        - fix: make container.sweep opt-in (#1389)
-        - fix: prevent masking gaps in workflow command logs (#1384)
-        - fix: upgrade Alpine packages in the runner images (#1388)
-        - test: speed up (#1386)
-        - test: fix windows path test (#1387)
-        - enhance: trust a private CA with runner.ca_file and add container.volumes (#1366)
-        - ci: sign release checksums with the imported GPG key (#1382)
-        - test: fix TestRunExecListUsesJobEventAndAllPlans hang on macOS (#1378)
-        - docs: use latest image tags in examples (#1383)
-        - chore(deps): update go.yaml.in/yaml/v4 to v4.0.0 (#1381)
-        - fix(cache): stop the cache server from running its volume out of space (#1377)
-        - fix: align process handling and fix Windows crashes (#1376)
-        - fix: give each Dockerfile action image its own ID (#1372)
-        - fix: give git-lfs the checkout token once (#1371)
-        - ci: run the Windows tests on a runner with KVM (#1369)
-        - enhance: support Docker on FreeBSD and restructure the README (#1367)
-        - enhance: test on Windows and fix what it found (#1348)
-        - chore(deps): update dependencies (#1365)
-        - fix(dind): double-fork in s6-notifyoncheck to eliminate zombie processes (#1364)
-        - test(e2e): speed up and cover exec and Kubernetes modes (#1363)
-        - enhance(kubernetes): fetch job pod copies from the runner over the pod network (#1354)
-        - fix(exec): load local reusable workflows from disk with --no-skip-checkout (#1362)
-        - enhance(cache): scope cache entries by ref like GitHub (#1361)
-        - enhance: add GITEA_* aliases for built-in workflow environment variables (#1358)
-        - fix: scope the action identity to the step executing an action (#1359)
-packaged_at: 2026-11-27T02:53:52.831591583Z
+        Upstream 6.1.0 (since 6.0.1)
+        - enhance: run JavaScript actions on a pinned Node.js (#1400)
+        - fix: composite action masks, systempaths option and locked action clones (#1424)
+        - fix: upload artifacts directly when jobs cannot reach the runner's cache (#1425)
+        - enhance: add host.stable_workdir for predictable host job paths (#1402)
+        - chore(deps): update dependencies (#1422)
+        - feat: add `runner.action_replacements` to rewrite step `uses` (#1417)
+        - enhance: align job execution closer to GitHub Actions (#1421)
+packaged_at: 2026-11-28T10:54:09.679022916Z
 reviews:
     - id: 24050
       source:
