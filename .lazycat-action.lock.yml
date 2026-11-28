@@ -6,7 +6,7 @@ source:
     revision: a8d0d8a7e0836df7fc1d8c02139d31a31b1efa31
     tag: v6.1.0
 fingerprint: sha256:dd7d9c1816187cb8061bda323e7247b2353086ecbd2b4d55c8cd47df3129c552
-status: packaged
+status: submitted
 images:
     - id: gitearunner
       source_ref: ttl.sh/lazycat-gitearunner-dd7d9c181618:24h@sha256:c3fcf50076ecc24226aac5d73764cc2dc76cb75bb405cbfffaa57206a07298e2
@@ -41,3 +41,17 @@ reviews:
       created_at: 2026-11-27T02:54:15.59Z
       submitted_at: 2026-11-27T02:54:15.727423971Z
       checked_at: 2026-11-27T02:54:15.727424295Z
+    - id: 24207
+      source:
+        kind: git
+        version: 6.1.0
+        ref: refs/tags/v6.1.0
+        revision: a8d0d8a7e0836df7fc1d8c02139d31a31b1efa31
+        tag: v6.1.0
+      fingerprint: sha256:dd7d9c1816187cb8061bda323e7247b2353086ecbd2b4d55c8cd47df3129c552
+      application_version: 6.1.0
+      lpk_sha256: 9eefc979b0286936257f460b646c2064fdef6e85d98c610dfd61b32ce519f778
+      status: waiting
+      created_at: 2026-11-28T10:54:27.627Z
+      submitted_at: 2026-11-28T10:54:27.789445046Z
+      checked_at: 2026-11-28T10:54:27.789445767Z
